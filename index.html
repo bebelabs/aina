@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Native Accounting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a0f1a;
+            --secondary-dark: #111827;
+            --accent-teal: #00d4aa;
+            --accent-teal-light: #00ffc8;
+            --accent-blue: #3b82f6;
+            --text-white: #ffffff;
+            --text-gray: #9ca3af;
+            --text-light-gray: #d1d5db;
+            --card-bg: #1a2332;
+            --border-color: #2d3748;
+            --gradient-start: #00d4aa;
+            --gradient-end: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 15, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-teal);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-teal);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 120px 2rem 80px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 170, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 212, 170, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--accent-teal);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-badge::before {
+            content: '📣';
+            font-size: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease 0.1s backwards;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-light) 50%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.3s backwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+         .btn-small {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 10px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-teal) 0%, #00b894 100%);
+            color: var(--primary-dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 212, 170, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-white);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-teal);
+            color: var(--accent-teal);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Marquee */
+        .marquee-section {
+            background: var(--secondary-dark);
+            padding: 1rem 0;
+            overflow: hidden;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .marquee {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        .marquee-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            padding-right: 3rem;
+            white-space: nowrap;
+        }
+
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            color: var(--accent-teal);
+        }
+
+        .marquee-item::before {
+            content: '★';
+            color: var(--accent-teal);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Featured Episodes Section */
+        .featured-section {
+            padding: 100px 2rem;
+            background: var(--primary-dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            color: var(--text-gray);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Episode Grid */
+        .episode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .episode-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-teal);
+            box-shadow: 0 20px 60px rgba(0, 212, 170, 0.15);
+        }
+
+        .episode-thumbnail {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--card-bg) 100%);
+        }
+
+        .episode-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .episode-card:hover .episode-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .episode-number {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(0, 212, 170, 0.9);
+            color: var(--primary-dark);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .episode-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-btn {
+            width: 70px;
+            height: 70px;
+            background: var(--accent-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .play-btn::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid var(--primary-dark);
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 4px;
+        }
+
+        .episode-card:hover .play-btn {
+            transform: scale(1.1);
+        }
+
+        .episode-content {
+            padding: 1.5rem;
+        }
+
+        .episode-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .episode-content p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .episode-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+
+        .episode-guest {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .guest-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* Why Section */
+        .why-section {
+            padding: 100px 2rem;
+            background: var(--secondary-dark);
+            position: relative;
+        }
+
+        .why-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-teal), transparent);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .why-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .why-content h2 span {
+            color: var(--accent-teal);
+        }
+
+        .why-content p {
+            color: var(--text-gray);
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .why-content blockquote {
+            border-left: 3px solid var(--accent-teal);
+            padding-left: 1.5rem;
+            font-style: italic;
+            color: var(--text-light-gray);
+            font-size: 1.125rem;
+        }
+
+        .why-visual {
+            position: relative;
+        }
+
+        .why-visual-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-visual-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.1) 0%, transparent 70%);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Host Section */
+        .host-section {
+            padding: 100px 2rem;
+            background: var(--primary-dark);
+        }
+
+        .host-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .host-image {
+            position: relative;
+        }
+
+        .host-image-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+        }
+
+        .host-image-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0, 212, 170, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .host-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .host-placeholder {
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .host-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .host-title {
+            color: var(--accent-teal);
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .host-content p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .host-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-teal);
+            color: var(--accent-teal);
+            transform: translateY(-2px);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 100px 2rem;
+            background: var(--secondary-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .newsletter-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-content p {
+            color: var(--text-gray);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-white);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--text-gray);
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--accent-teal);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            border-top: 1px solid var(--border-color);
+            padding: 60px 2rem 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand p {
+            color: var(--text-gray);
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .footer-column h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent-teal);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--accent-teal);
+        }
+
+        /* Page Specific Styles */
+        .page-hero {
+            padding: 160px 2rem 80px;
+            text-align: center;
+            background: var(--primary-dark);
+            position: relative;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0, 212, 170, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .page-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+        }
+
+        .page-hero p {
+            color: var(--text-gray);
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Page content hidden by default */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* AI Awards Page */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 60px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .award-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .award-card:hover {
+            border-color: var(--accent-teal);
+            transform: translateY(-4px);
+        }
+
+        .award-category {
+            display: inline-block;
+            background: rgba(0, 212, 170, 0.1);
+            color: var(--accent-teal);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .award-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .award-card .company {
+            color: var(--accent-teal);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .award-card p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Research Page */
+        .research-section {
+            padding: 60px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .research-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .research-intro p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .research-topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .research-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .research-card:hover {
+            border-color: var(--accent-teal);
+        }
+
+        .research-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .research-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+        }
+
+        .research-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* Scholarship Page */
+        .scholarship-content {
+            padding: 60px 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .scholarship-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .scholarship-intro p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+
+        .scholarship-details {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .scholarship-details h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-teal);
+        }
+
+        .scholarship-details ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .scholarship-details li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .scholarship-details li::before {
+            content: '✓';
+            color: var(--accent-teal);
+            font-weight: bold;
+        }
+
+        .scholarship-details p {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1024px) {
+            .why-grid,
+            .host-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .host-grid {
+                text-align: center;
+            }
+
+            .host-image {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-dark);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 140px 1.5rem 60px;
+            }
+
+            .episode-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-top {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">
+                <img src="logo.png" alt="AI-Native Accounting">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="active" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('podcast')">Podcast</a></li>
+                <li><a href="#" onclick="showPage('awards')">Award</a></li>
+                <li><a href="#" onclick="showPage('advisory')">Advisory Council</a></li>
+                <li><a href="#" onclick="showPage('scholarship')">Scholarship</a></li>
+                <li><a href="#" onclick="showPage('research')">Research</a></li>
+                <li><a href="#" onclick="showPage('research')">Get in Touch</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">Nomination for 2026 AINA Awards Now Open</div>
+                <h1>The Future of Accounting is <span class="gradient-text">AI-Native</span></h1>
+                <p>Join industry leaders, CPAs, and innovators cutting through the AI hype and sharing what's working in practice</p>
+    
+           
+            <div class="newsletter-content">
+                <form class="newsletter-form" onsubmit="return false;">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit" class="btn btn-primary">Join the community</button>
+                </form>
+            </div>
+            
+            </div>
+        </section>
+
+        <!-- Marquee -->
+        <div class="marquee-section">
+            <div class="marquee">
+                <div class="marquee-content">
+                    <span class="marquee-item">AI-Powered Bookkeeping</span>
+                    <span class="marquee-item">Real-Time Financial Insights</span>
+                    <span class="marquee-item">Autonomous General Ledger</span>
+                    <span class="marquee-item">CPA Innovation</span>
+                    <span class="marquee-item">Month-End Automation</span>
+                    <span class="marquee-item">Future of Finance</span>
+                </div>
+                <div class="marquee-content">
+                    <span class="marquee-item">AI-Powered Bookkeeping</span>
+                    <span class="marquee-item">Real-Time Financial Insights</span>
+                    <span class="marquee-item">Autonomous General Ledger</span>
+                    <span class="marquee-item">CPA Innovation</span>
+                    <span class="marquee-item">Month-End Automation</span>
+                    <span class="marquee-item">Future of Finance</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Episodes -->
+        <section class="featured-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Featured Episodes</h2>
+                    <p>Conversations with the leading voices shaping the future of AI in accounting</p>
+                </div>
+                <div class="episode-grid">
+                    <!-- Episode 8 -->
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">
+                            <img src="https://ram.digitscpu.com/_astro-assets/sue-hero.DAn5HElS_1o4fNx.webp" alt="Susan Coffey">
+                            <span class="episode-number">EP 008</span>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                        </div>
+                        <div class="episode-content">
+                            <h3>Susan Coffey - Responsible AI for CPAs</h3>
+                            <p>The CEO of Public Accounting at the AICPA shares why responsible, auditable AI is a non-negotiable for the profession.</p>
+                            <div class="episode-meta">
+                                <div class="episode-guest">
+                                    <div class="guest-avatar">SC</div>
+                                    <span>Susan Coffey</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Episode 7 -->
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">
+                            <img src="https://ram.digitscpu.com/_astro-assets/kane-hero.DgX0g9ub_Z1QuFtV.webp" alt="Kane Polakoff">
+                            <span class="episode-number">EP 007</span>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                        </div>
+                        <div class="episode-content">
+                            <h3>Kane Polakoff - Scaling Advisory with AI</h3>
+                            <p>A senior CAS leader breaks down how disciplined, transparent AI adoption is becoming the defining advantage.</p>
+                            <div class="episode-meta">
+                                <div class="episode-guest">
+                                    <div class="guest-avatar">KP</div>
+                                    <span>Kane Polakoff</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Episode 6 -->
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">
+                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-006.DM_ubjul_1fBVMn.webp" alt="Episode 6">
+                            <span class="episode-number">EP 006</span>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                        </div>
+                        <div class="episode-content">
+                            <h3>Wernikoff + Seibert + Walker</h3>
+                            <p>Three of the most influential builders in modern accounting software explain the shift every firm will feel.</p>
+                            <div class="episode-meta">
+                                <div class="episode-guest">
+                                    <div class="guest-avatar">3</div>
+                                    <span>Industry Leaders</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Section -->
+        <section class="why-section">
+            <div class="container">
+                <div class="why-grid">
+                    <div class="why-content">
+                        <h2>Why <span>AI Native</span> Accounting?</h2>
+<p>The AI Native Accounting Foundation equips firms and finance teams to adopt AI confidently—moving the profession past hype and into practice. 
+</p>
+<p>AI is reshaping accounting, tax, audit, and advisory work. The question isn't if firms will adopt AI, but how—responsibly, intentionally, with judgment and humans in the loop.
+</p>
+<blockquote>"AI-native isn't about replacing accountants. It's about elevating the profession to focus on what humans do best: trusted advisory."</blockquote>
+<br />
+<p>We create space for honest dialogue, shared learning, and real examples of AI adoption. Through research, recognition, and community, we help firms become truly AI-native, not just AI-enabled.
+</p>
+                    </div>
+                    <div class="why-visual">
+                        <div class="why-visual-card">
+                            <div class="stat-grid">
+                                <div class="stat-item">
+                                    <div class="stat-value">80%</div>
+                                    <div class="stat-label">Tasks Automatable</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">24/7</div>
+                                    <div class="stat-label">AI Monitoring</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">10x</div>
+                                    <div class="stat-label">Efficiency Gains</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">$825B+</div>
+                                    <div class="stat-label">Transactions Trained</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Newsletter -->
+        <section class="newsletter-section">
+            <div class="newsletter-content">
+                <h2>Stay Ahead of the Curve</h2>
+                <p>Get early access to new episodes and insights on AI's impact on the accounting profession.</p>
+                <form class="newsletter-form" onsubmit="return false;">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- AINA AWARDS PAGE -->
+    <div id="awards" class="page">
+        <div class="page-hero">
+            <h1>AINA Awards</h1>
+            <p>Recognizing the pioneers and innovators transforming accounting through artificial intelligence</p>
+        </div>
+
+        <div class="awards-grid">
+            <div class="award-card">
+                <span class="award-category">AI Innovation</span>
+                <h3>Best AI-Powered Platform</h3>
+                <p class="company">Digits Financial</p>
+                <p>For pioneering the Autonomous General Ledger and transforming how businesses manage their finances.</p>
+            </div>
+            <div class="award-card">
+                <span class="award-category">Leadership</span>
+                <h3>CPA AI Champion</h3>
+                <p class="company">Susan Coffey, AICPA</p>
+                <p>For championing responsible AI adoption standards across the accounting profession.</p>
+            </div>
+            <div class="award-card">
+                <span class="award-category">Implementation</span>
+                <h3>Best Firm Transformation</h3>
+                <p class="company">BPM LLP</p>
+                <p>For achieving 80% daily AI tool adoption and setting the standard for firm-wide AI integration.</p>
+            </div>
+            <div class="award-card">
+                <span class="award-category">Research</span>
+                <h3>Thought Leadership</h3>
+                <p class="company">Ron Baker, Threshold</p>
+                <p>For reframing AI's role around outcome-focused accounting and value-based pricing.</p>
+            </div>
+            <div class="award-card">
+                <span class="award-category">Education</span>
+                <h3>AI Training Excellence</h3>
+                <p class="company">Joe Woodard, Woodard Group</p>
+                <p>For helping thousands of accountants move past AI skepticism with practical implementation guidance.</p>
+            </div>
+            <div class="award-card">
+                <span class="award-category">Technology</span>
+                <h3>Emerging AI Solution</h3>
+                <p class="company">Coming Soon</p>
+                <p>Nominations open for breakthrough AI solutions transforming accounting workflows.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PODCAST PAGE -->
+    <div id="podcast" class="page">
+        <div class="page-hero">
+            <h1>AI-Native Accounting Podcast</h1>
+            <p>Deep conversations exploring AI's impact on the accounting profession</p>
+        </div>
+
+        <section class="featured-section">
+            <div class="container">
+                <div class="episode-grid">
+                    <!-- Episode 8 -->
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">
+                            <img src="https://ram.digitscpu.com/_astro-assets/sue-hero.DAn5HElS_1o4fNx.webp" alt="Susan Coffey">
+                            <span class="episode-number">EP 008</span>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                        </div>
+                        <div class="episode-content">
+                            <h3>Episode 008 - Susan Coffey</h3>
+                            <p>The CEO of Public Accounting at the AICPA shares why responsible, auditable AI is a non-negotiable for the profession—exploring the guardrails, talent shifts, and mindset changes CPA firms need to innovate without compromising trust or standards.</p>
+                            <div class="episode-meta">
+                                <div class="episode-guest">
+                                    <div class="guest-avatar">SC</div>
+                                    <span>AICPA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Episode 7 -->
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">
+                            <img src="https://ram.digitscpu.com/_astro-assets/kane-hero.DgX0g9ub_Z1QuFtV.webp" alt="Kane Polakoff">
+                            <span class="episode-number">EP 007</span>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                        </div>
+                        <div class="episode-content">
+                            <h3>Episode 007 - Kane Polakoff</h3>
+                            <p>A senior CAS leader from one of the country's top advisory firms breaks down how disciplined, transparent AI adoption is becoming the defining advantage for accounting practices trying to scale beyond bookkeeping.</p>
+                            <div class="episode-meta">
+                                <div class="episode-guest">
+                                    <div class="guest-avatar">KP</div>
+                                    <span>Advisory Leader</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Episode 6 -->
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">
+                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-006.DM_ubjul_1fBVMn.webp" alt="Episode 6">
+                            <span class="episode-number">EP 006</span>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                        </div>
+                        <div class="episode-content">
+                            <h3>Episode 006 - Wernikoff + Seibert + Walker</h3>
+                            <p>Three of the most influential builders in modern accounting software explain the shift every firm will feel as AI reshapes the profession, both in the near term and the decade ahead.</p>
+                            <div class="episode-meta">
+                                <div class="episode-guest">
+                                    <div class="guest-avatar">3</div>
+                                    <span>Industry Leaders</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Episode 5 -->
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">
+                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-episode-005.BVRFCweI_Z20VVW3.webp" alt="Ron Baker">
+                            <span class="episode-number">EP 005</span>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                        </div>
+                        <div class="episode-content">
+                            <h3>Episode 005 - Ron Baker</h3>
+                            <p>Join host Kacee Johnson and Ron Baker, co-founder of Threshold, as they reframe AI's role in accounting around "outcome-focused" firms—designing for long-term transformations, tracking time saved/invested and transformation KPIs.</p>
+                            <div class="episode-meta">
+                                <div class="episode-guest">
+                                    <div class="guest-avatar">RB</div>
+                                    <span>Threshold</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Episode 4 -->
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">
+                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-episode-004.DmlMdvrW_Z1bVLoC.webp" alt="Joe Woodard">
+                            <span class="episode-number">EP 004</span>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                        </div>
+                        <div class="episode-content">
+                            <h3>Episode 004 - Joe Woodard</h3>
+                            <p>Join host Kacee Johnson and Joe Woodard, founder & CEO of Woodard Group, as they explore how accountants can move past AI skepticism and take practical steps to integrate automation.</p>
+                            <div class="episode-meta">
+                                <div class="episode-guest">
+                                    <div class="guest-avatar">JW</div>
+                                    <span>Woodard Group</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Episode 3 -->
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">
+                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-episode-003.B1UTQhAc_Z8RTdE.webp" alt="Lindsay Stevenson">
+                            <span class="episode-number">EP 003</span>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                        </div>
+                        <div class="episode-content">
+                            <h3>Episode 003 - Lindsay Stevenson</h3>
+                            <p>Join host Kacee Johnson and Lindsay Stevenson as they explore BPM's journey from AI curiosity to 80% daily Copilot usage, uncovering grassroots wins, broken systems, and what late adopters should focus on now.</p>
+                            <div class="episode-meta">
+                                <div class="episode-guest">
+                                    <div class="guest-avatar">LS</div>
+                                    <span>BPM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Episode 2 -->
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">
+                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-episode-002.CdUum0pX_Z1sfR7J.webp" alt="Dan Luthi">
+                            <span class="episode-number">EP 002</span>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                        </div>
+                        <div class="episode-content">
+                            <h3>Episode 002 - Dan Luthi</h3>
+                            <p>Join host Kacee Johnson and Dan Luthi as they dive into AI's impact on accounting, exploring tech-driven transformations and the essential balance of automation with the human touch.</p>
+                            <div class="episode-meta">
+                                <div class="episode-guest">
+                                    <div class="guest-avatar">DL</div>
+                                    <span>Tech Leader</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Episode 1 -->
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">
+                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-episode-001.4c3rushp_1uWigL.webp" alt="Dawn Brolin + Matt Gardner">
+                            <span class="episode-number">EP 001</span>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                        </div>
+                        <div class="episode-content">
+                            <h3>Episode 001 - Dawn Brolin + Matt Gardner</h3>
+                            <p>Join host Kacee Johnson with experts Dawn Brolin and Matt Gardner as they explore AI's real-world impact on accounting and how they've been implementing it to modernize their practices.</p>
+                            <div class="episode-meta">
+                                <div class="episode-guest">
+                                    <div class="guest-avatar">2</div>
+                                    <span>Practice Leaders</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Host Section -->
+        <section class="host-section">
+            <div class="container">
+                <div class="host-grid">
+                    <div class="host-image">
+                        <div class="host-image-wrapper">
+                            <div class="host-placeholder"><img src="https://kaceejohnson.com/wp-content/uploads/2021/01/IMG_5223-scaled.jpg"></div>
+                        </div>
+                    </div>
+                    <div class="host-content">
+                        <h2>Meet the Host: Kacee Johnson</h2>
+                        <p class="host-title">AI Accounting Advocate & Industry Voice</p>
+                        <p>Kacee Johnson leads the AI Native Accounting podcast, bringing together the brightest minds in accounting technology to discuss the transformation happening across the profession.</p>
+                        <p>Kacee Johnson is a fintech executive and innovation strategist with a standout record in driving global SaaS growth, pioneering cloud and AI-powered solutions, and scaling startups to funding or exit. She’s recognized among Accounting Today’s Top 100 Most Influential People, CPA Practice Advisor’s Top 25 Thought Leaders, and named as one of the Most Powerful Women in Accounting by the AICPA.</p>
+                        <p>With deep expertise in accounting technology and a passion for innovation, Kacee guides conversations that help CPAs and firm leaders understand how to embrace AI while maintaining the trust and standards the profession demands.</p>
+                        <div class="host-social">
+                            <a href="https://x.com/kaceej" class="social-link">𝕏</a>
+                            <a href="https://www.linkedin.com/in/kacee-johnson/" class="social-link">in</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- RESEARCH PAGE -->
+    <div id="research" class="page">
+        <div class="page-hero">
+            <h1>Research</h1>
+            <p>Exploring the data, trends, and insights driving AI adoption in accounting</p>
+        </div>
+
+        <section class="research-section">
+            <div class="research-intro">
+                <p>Our research tracks the evolution of AI in the accounting profession, from adoption rates and implementation strategies to the changing skill sets that define success in an AI-native world.</p>
+            </div>
+
+            <div class="research-topics">
+                <div class="research-card">
+                    <div class="research-icon">📊</div>
+                    <h3>AI Adoption Benchmarks</h3>
+                    <p>Tracking how accounting firms of all sizes are implementing AI tools, from basic automation to full autonomous general ledgers. Our benchmark studies reveal adoption curves, ROI metrics, and best practices from early adopters.</p>
+                </div>
+
+                <div class="research-card">
+                    <div class="research-icon">🎯</div>
+                    <h3>Outcome-Focused Accounting</h3>
+                    <p>Research into value-based pricing models and how AI enables firms to shift from hourly billing to outcome-focused engagements. Includes case studies of firms successfully making this transition.</p>
+                </div>
+
+                <div class="research-card">
+                    <div class="research-icon">🔒</div>
+                    <h3>AI Governance & Ethics</h3>
+                    <p>Examining the frameworks, standards, and best practices for responsible AI use in accounting. Covers audit trails, data privacy, bias mitigation, and regulatory compliance considerations.</p>
+                </div>
+
+                <div class="research-card">
+                    <div class="research-icon">👥</div>
+                    <h3>Talent & Skills Evolution</h3>
+                    <p>How AI is reshaping the skills accountants need for success. From prompt engineering to data analysis, we track the emerging competencies that define AI-native accounting professionals.</p>
+                </div>
+
+                <div class="research-card">
+                    <div class="research-icon">⚡</div>
+                    <h3>Automation Impact Studies</h3>
+                    <p>Quantifying the efficiency gains from AI implementation across different accounting workflows. Our studies measure time savings, error reduction, and client satisfaction improvements.</p>
+                </div>
+
+                <div class="research-card">
+                    <div class="research-icon">🌐</div>
+                    <h3>Global AI Trends</h3>
+                    <p>Comparative analysis of AI adoption across different markets and regulatory environments. Understanding how accounting AI evolves differently based on local requirements and professional standards.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- SCHOLARSHIP PAGE -->
+    <div id="scholarship" class="page">
+        <div class="page-hero">
+            <h1>Scholarship Program</h1>
+            <p>Investing in the next generation of AI-native accounting professionals</p>
+        </div>
+
+        <section class="scholarship-content">
+            <div class="scholarship-intro">
+                <p>The AI Native Accounting Scholarship supports students and early-career professionals who are passionate about transforming the accounting profession through technology.</p>
+            </div>
+
+            <div class="scholarship-details">
+                <h3>Program Overview</h3>
+                <ul>
+                    <li>Annual scholarship awards for accounting students pursuing AI and technology integration</li>
+                    <li>Mentorship opportunities with industry leaders featured on our podcast</li>
+                    <li>Access to exclusive AI Native Accounting community events and resources</li>
+                    <li>Internship connections with leading AI-forward accounting firms</li>
+                    <li>Professional development stipends for AI and technology certifications</li>
+                </ul>
+            </div>
+
+            <div class="scholarship-details">
+                <h3>Eligibility</h3>
+                <p>We welcome applications from undergraduate and graduate students pursuing degrees in accounting, finance, or related fields who demonstrate a genuine interest in AI and technology's role in transforming the profession. Candidates should show academic excellence, leadership potential, and a vision for how they'll contribute to AI-native accounting.</p>
+            </div>
+
+            <div class="scholarship-details">
+                <h3>Application Process</h3>
+                <p>Applications open annually in January. Candidates submit their academic records, a personal statement on their vision for AI in accounting, and a brief video introducing themselves and their goals. Finalists are interviewed by our selection committee, which includes past podcast guests and industry leaders.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="logo" onclick="showPage('home')">
+                        <img src="logo.png" alt="AI-Native Accounting">
+                    </a>
+                    <p>Moving accounting firms and finance teams past the AI hype and into practice.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Content</h4>
+                        <ul>
+                            <li><a href="#" onclick="showPage('podcast')">Podcast</a></li>
+                            <li><a href="#" onclick="showPage('research')">Research</a></li>
+                            <li><a href="#" onclick="showPage('awards')">AINA Awards</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="#" onclick="showPage('scholarship')">Scholarship</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                            <li><a href="#">Events</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <ul>
+                            <li><a href="#">LinkedIn</a></li>
+                            <li><a href="#">Twitter / X</a></li>
+                            <li><a href="#">YouTube</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 AI Native Accounting. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Close mobile menu
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.style.background = 'rgba(10, 15, 26, 0.98)';
+            } else {
+                nav.style.background = 'rgba(10, 15, 26, 0.95)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.episode-card, .award-card, .research-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
