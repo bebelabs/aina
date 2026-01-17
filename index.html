@@ -677,6 +677,204 @@
             transform: translateY(-2px);
         }
 
+        /*AINA Awards Section */
+        .awards-hero-section {
+    padding: 60px 2rem 80px;
+    background: var(--primary-dark);
+}
+
+.awards-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.awards-hero-content h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.awards-hero-content .gradient-text {
+    background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-light) 50%, var(--accent-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.podcast-intro-content .gradient-text {
+    background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-light) 50%, var(--accent-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.podcast-intro-content h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.awards-hero-content p {
+    color: var(--text-gray);
+    font-size: 1.125rem;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+}
+
+.awards-cta-text {
+    color: var(--text-light-gray) !important;
+    font-weight: 500;
+}
+
+.btn-nomination {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1rem;
+    padding: 16px 36px;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.btn-nomination svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-nomination:hover svg {
+    transform: translateX(4px);
+}
+
+/* Awards Logo/Image */
+.awards-hero-image {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.awards-logo-wrapper {
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-dark) 100%);
+    border: 3px solid var(--accent-teal);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 
+        0 20px 60px rgba(0, 212, 170, 0.15),
+        0 0 40px rgba(0, 212, 170, 0.1);
+    transition: all 0.4s ease;
+}
+
+.awards-logo-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 30px 80px rgba(0, 212, 170, 0.2),
+        0 0 60px rgba(0, 212, 170, 0.15);
+}
+
+.awards-logo-wrapper img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.awards-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 1.5rem;
+    background: rgba(0, 212, 170, 0.1);
+    border: 1px solid rgba(0, 212, 170, 0.3);
+    padding: 12px 24px;
+    border-radius: 50px;
+}
+
+.badge-year {
+    background: var(--accent-teal);
+    color: var(--primary-dark);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.badge-text {
+    color: var(--accent-teal);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Awards Categories Section */
+.awards-categories-section {
+    padding: 80px 2rem;
+    background: var(--secondary-dark);
+}
+
+
+/* Awards CTA Section */
+.awards-cta-section {
+    padding: 80px 2rem;
+    background: var(--primary-dark);
+}
+
+.awards-cta-card {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.awards-cta-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
+}
+
+.awards-cta-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.awards-cta-card p {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .awards-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+    }
+    
+    .awards-hero-image {
+        order: -1;
+    }
+    
+    .awards-logo-wrapper {
+        max-width: 400px;
+    }
+}
         /* Newsletter Section */
         .newsletter-section {
             padding: 100px 2rem;
@@ -841,7 +1039,7 @@
 
         /* Page Specific Styles */
         .page-hero {
-            padding: 160px 2rem 80px;
+            padding: 160px 2rem 20px;
             text-align: center;
             background: var(--primary-dark);
             position: relative;
@@ -869,7 +1067,7 @@
         .page-hero p {
             color: var(--text-gray);
             font-size: 1.25rem;
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -885,9 +1083,8 @@
         /* AI Awards Page */
         .awards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 2rem;
-            padding: 60px 2rem;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -1049,6 +1246,157 @@
             color: var(--text-gray);
             line-height: 1.8;
         }
+/* Podcast Intro Section */
+        .podcast-intro-section {
+            padding: 60px 2rem 40px;
+            background: var(--primary-dark);
+        }
+
+        .podcast-intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .podcast-intro-content {
+            max-width: 700px;
+        }
+
+        .podcast-lead {
+            font-size: 1.2rem;
+            color: var(--text-light-gray);
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .podcast-lead a {
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .podcast-secondary {
+            font-size: 1.15rem;
+            color: var(--accent-teal);
+            font-weight: 500;
+            margin-bottom: 1.25rem;
+            font-style: italic;
+        }
+
+        .podcast-cta-text {
+            font-size: 1.05rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        .podcast-cta-text a {
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .podcast-cta-text a:hover {
+            color: var(--accent-teal-light);
+            text-decoration: underline;
+        }
+
+        .podcast-subscribe-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .podcast-subscribe-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-white);
+        }
+
+        .podcast-platforms {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .platform-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            color: var(--text-white);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .platform-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            transition: left 0.3s ease;
+        }
+
+        .platform-link:hover {
+            transform: translateY(-3px);
+            letter-spacing: 0.5px;
+        }
+
+        .platform-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .platform-youtube {
+            background: #FF0000;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+        }
+
+        .platform-youtube:hover {
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+            background: #E60000;
+        }
+
+        .platform-spotify {
+            background: #1DB954;
+            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.2);
+        }
+
+        .platform-spotify:hover {
+            box-shadow: 0 8px 25px rgba(29, 185, 84, 0.4);
+            background: #1ed760;
+        }
+
+        .platform-apple {
+            background: #A855F7;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+        }
+
+        .platform-apple:hover {
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+            background: #c084fc;
+        }
+
 
         /* Mobile Styles */
         @media (max-width: 1024px) {
@@ -1069,6 +1417,22 @@
         }
 
         @media (max-width: 768px) {
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .podcast-intro-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .podcast-intro-content {
+                text-align: center;
+            }
+
+            .podcast-lead {
+                font-size: 1.15rem;
+            }
             .nav-links {
                 display: none;
                 position: absolute;
@@ -1132,10 +1496,10 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#" class="active" onclick="showPage('home')">Home</a></li>
                 <li><a href="#" onclick="showPage('podcast')">Podcast</a></li>
-                <li><a href="#" onclick="showPage('awards')">Award</a></li>
+                <li><a href="#" onclick="showPage('awards')">Awards</a></li>
                 <li><a href="#" onclick="showPage('advisory')">Advisory Council</a></li>
-                <li><a href="#" onclick="showPage('scholarship')">Scholarship</a></li>
-                <li><a href="#" onclick="showPage('research')">Research</a></li>
+                <!--<li><a href="#" onclick="showPage('scholarship')">Scholarship</a></li>!-->
+                <!--<li><a href="#" onclick="showPage('research')">Research</a></li>!-->
                 <li><a href="#" onclick="showPage('research')">Get in Touch</a></li>
             </ul>
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
@@ -1317,55 +1681,142 @@
     <div id="awards" class="page">
         <div class="page-hero">
             <h1>AINA Awards</h1>
-            <p>Recognizing the pioneers and innovators transforming accounting through artificial intelligence</p>
+            <p>Honoring the leaders turning AI wins into playbooks for the entire profession</p>
         </div>
 
-        <div class="awards-grid">
-            <div class="award-card">
-                <span class="award-category">AI Innovation</span>
-                <h3>Best AI-Powered Platform</h3>
-                <p class="company">Digits Financial</p>
-                <p>For pioneering the Autonomous General Ledger and transforming how businesses manage their finances.</p>
+           <!-- New Awards Hero Section -->
+    <section class="awards-hero-section">
+        <div class="container">
+            <div class="awards-hero-grid">
+                <div class="awards-hero-content">
+                    <h2>Celebrating <span class="gradient-text">AI Excellence</span></h2>
+                    <p>The AINA Awards recognize firms and practitioners who are making measurable, responsible progress with AI.</p>
+                    <p class="awards-cta-text">Know someone transforming the profession with AI? Nominations for the 2026 AINA Awards are now open.</p>
+                    <a href="#" class="btn btn-primary btn-nomination" onclick="openNominationForm()">
+                        <span>Submit a Nomination</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="awards-hero-image">
+                    <div class="awards-logo-wrapper">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect fill='%23111' width='400' height='200'/%3E%3Crect x='8' y='8' width='384' height='184' fill='none' stroke='%2300d4aa' stroke-width='8'/%3E%3Ctext x='200' y='90' text-anchor='middle' font-family='Arial Black, sans-serif' font-size='42' font-weight='900' fill='white'%3EAI-NATIVE%3C/text%3E%3Ctext x='200' y='145' text-anchor='middle' font-family='Arial Black, sans-serif' font-size='42' font-weight='900' fill='white'%3EACCOUNTING%3C/text%3E%3C/svg%3E" alt="AI-Native Accounting Awards">
+                        <!-- Replace the above src with your actual image: -->
+                        <!-- <img src="your-aina-awards-logo.png" alt="AI-Native Accounting Awards"> -->
+                    </div>
+                    <div class="awards-badge">
+                        <span class="badge-year">2026</span>
+                        <span class="badge-text">Nominations Open</span>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
+
+
+        <section style="padding: 60px 2rem; background: var(--primary-dark); text-align: center;">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 3rem;">Award Categories</h2>
+            <div class="awards-grid">
             <div class="award-card">
                 <span class="award-category">Leadership</span>
                 <h3>CPA AI Champion</h3>
-                <p class="company">Susan Coffey, AICPA</p>
                 <p>For championing responsible AI adoption standards across the accounting profession.</p>
             </div>
             <div class="award-card">
                 <span class="award-category">Implementation</span>
                 <h3>Best Firm Transformation</h3>
-                <p class="company">BPM LLP</p>
                 <p>For achieving 80% daily AI tool adoption and setting the standard for firm-wide AI integration.</p>
-            </div>
-            <div class="award-card">
-                <span class="award-category">Research</span>
-                <h3>Thought Leadership</h3>
-                <p class="company">Ron Baker, Threshold</p>
-                <p>For reframing AI's role around outcome-focused accounting and value-based pricing.</p>
             </div>
             <div class="award-card">
                 <span class="award-category">Education</span>
                 <h3>AI Training Excellence</h3>
-                <p class="company">Joe Woodard, Woodard Group</p>
                 <p>For helping thousands of accountants move past AI skepticism with practical implementation guidance.</p>
             </div>
-            <div class="award-card">
-                <span class="award-category">Technology</span>
-                <h3>Emerging AI Solution</h3>
-                <p class="company">Coming Soon</p>
-                <p>Nominations open for breakthrough AI solutions transforming accounting workflows.</p>
             </div>
-        </div>
+        </section>
+
+        <section class="scholarship-content">
+        <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 3rem; text-align: center;">Award Eligibility and Prizes</h2>
+            <div class="scholarship-details">
+                <h3>Award Winners Spotlight Real Outcomes</h3>
+                <ul>
+                    <li>Improved capacity and accuracy</li>
+                    <li>New service models and workflows</li>
+                    <li>Better client outcomes</li>
+                    <li>Thoughtful governance and ethical use of AI</li>
+                    <li>Approaches that other firms can realistically learn from and replicate</li>
+                </ul>
+                <p>An independent Advisory Council oversees criteria, review, and final selection to ensure credibility, neutrality, and transparency.</p>
+            </div>
+
+            <div class="scholarship-details">
+                <h3>The Prize</h3>
+                <p>Award winner(s) will receive:</p>
+                <ul>
+                    <li>Recognition on the main stage at the Scaling New Heights Conference in Orlando this June</li>
+                    <li>Comp pass + T&E to the Scaling New Heights Conference</li>
+                    <li>A featured guest episode on the AI Native Accounting Podcast</li>
+                    <li>Editorial and social recognition across Foundation channels</li>
+                    <li>Official AI Native Accounting Award designation and digital badges</li>
+                    <li>Visibility with firm leaders, technologists, and industry influencers</li>
+                    <li>A closed door strategy session focused on scaling their next AI strategies</li>
+                </ul>
+            </div>
+
+            <div class="scholarship-details">
+                <h3>Nominations Are Open</h3>
+                <p>Nominations are currently open to firms and practitioners who are actively implementing AI in meaningful ways.</p>
+                <ul>
+                    <li>Self-nominations and peer nominations are welcome</li>
+                    <li>Nominations close April 15 (pun fully intended)</li>
+                </ul>
+                <p><a href="#" class="btn btn-primary" onclick="openNominationForm()" style="display: inline-block; margin-top: 1rem;">Submit a nomination →</a></p>
+                <p style="margin-top: 2rem; font-size: 0.95rem; color: var(--text-gray);">The awards are celebrated annually, with finalists and winners highlighted publicly and in person on the main stage at Scaling New Heights, June 14-16, 2026 in Orlando.</p>
+            </div>
+        </section>
+
     </div>
+</div>
+
 
     <!-- PODCAST PAGE -->
     <div id="podcast" class="page">
         <div class="page-hero">
-            <h1>AI-Native Accounting Podcast</h1>
+            <h1>AINA Podcast</h1>
             <p>Deep conversations exploring AI's impact on the accounting profession</p>
         </div>
+            <!-- Podcast Description & Subscribe Section -->
+        <section class="podcast-intro-section">
+            <div class="container">
+                <div class="podcast-intro-grid">
+                    <div class="podcast-intro-content">
+                        <h2>Beyond <span class="gradient-text">The Hype</span></h2>
+                        <p class="podcast-lead">The AINA Podcast explores how firms and finance teams are actually adopting AI — what's working, what's breaking, and what responsible transformation really looks like behind the scenes.</p>
+                        <p class="podcast-lead">Hosted by <a href="#kacee">Kacee Johnson</a>, the podcast brings together firm leaders, technologists, thought leaders,
+educators, and builders to move the conversation beyond tools and buzzwords.</p>
+                        <p class="podcast-lead">New episodes are available on all major podcast platforms. Access the archives and subscribe today! CPE is available via <a href="https://www.earmarkcpe.com/" target="_blank" rel="noopener">Earmark</a>.</p>
+                    </div>
+                    <div class="podcast-subscribe-card">
+                        <h3>Listen & Subscribe</h3>
+                        <div class="podcast-platforms">
+                            <a href="https://www.youtube.com/playlist?list=PLclTeGzessrp2fOeFCitmFFVyrooznv7p" target="_blank" rel="noopener" class="platform-link platform-youtube">
+                                <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                <span>YouTube</span>
+                            </a>
+                            <a href="https://open.spotify.com/show/4VxT9SUsPKw6E1sTthYfoL?si=db80ce1c623b4b51" target="_blank" rel="noopener" class="platform-link platform-spotify">
+                                <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                                <span>Spotify</span>
+                            </a>
+                            <a href="https://podcasts.apple.com/ca/podcast/ai-native-accounting/id1822358393" target="_blank" rel="noopener" class="platform-link platform-apple">
+                                <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0H5.34zm6.525 2.568c2.336 0 4.448.902 6.056 2.587 1.224 1.272 1.912 2.619 2.264 4.392.12.59-.24 1.166-.828 1.296-.588.12-1.164-.24-1.296-.828-.252-1.26-.756-2.244-1.632-3.156-1.248-1.296-2.88-1.992-4.692-1.992-3.72 0-6.744 2.952-6.744 6.588 0 2.544 1.092 4.224 2.412 5.58.756.756 1.596 1.416 2.352 2.088.468.42.924.852 1.332 1.308.744.816 1.14 1.752 1.14 2.712v.456c0 .612-.492 1.104-1.104 1.104s-1.104-.492-1.104-1.104v-.456c0-.468-.18-.924-.588-1.38-.348-.372-.756-.756-1.2-1.152-.792-.696-1.68-1.404-2.544-2.28C3.828 17.268 2.4 15.012 2.4 11.856c0-4.848 4.02-8.88 8.94-8.88h.024zm.072 4.056c.552 0 1.044.108 1.476.324.432.216.792.516 1.08.9.312.396.528.852.66 1.38.132.528.132 1.08 0 1.68-.132.6-.336 1.14-.612 1.62-.288.492-.636.948-1.056 1.38-.408.42-.876.816-1.392 1.164-.516.36-1.08.696-1.692 1.008a.95.95 0 01-1.272-.384.95.95 0 01.384-1.272c.516-.264.996-.552 1.428-.852.432-.3.816-.624 1.14-.972.336-.36.6-.732.792-1.128.204-.396.336-.804.408-1.224.06-.42.048-.816-.036-1.176a2.186 2.186 0 00-.42-.888 1.844 1.844 0 00-.684-.564 1.936 1.936 0 00-.876-.192c-.324 0-.624.072-.888.216a2.004 2.004 0 00-.672.576c-.192.24-.336.528-.444.852-.096.324-.144.672-.144 1.044 0 .612-.492 1.104-1.104 1.104-.612 0-1.104-.492-1.104-1.104 0-.576.084-1.128.252-1.656.168-.528.42-1.008.756-1.428a3.926 3.926 0 011.236-1.044 3.608 3.608 0 011.788-.444z"/></svg>
+                                <span>Apple Podcasts</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section class="featured-section">
             <div class="container">
@@ -1432,116 +1883,11 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Episode 5 -->
-                    <div class="episode-card">
-                        <div class="episode-thumbnail">
-                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-episode-005.BVRFCweI_Z20VVW3.webp" alt="Ron Baker">
-                            <span class="episode-number">EP 005</span>
-                            <div class="play-overlay">
-                                <div class="play-btn"></div>
-                            </div>
-                        </div>
-                        <div class="episode-content">
-                            <h3>Episode 005 - Ron Baker</h3>
-                            <p>Join host Kacee Johnson and Ron Baker, co-founder of Threshold, as they reframe AI's role in accounting around "outcome-focused" firms—designing for long-term transformations, tracking time saved/invested and transformation KPIs.</p>
-                            <div class="episode-meta">
-                                <div class="episode-guest">
-                                    <div class="guest-avatar">RB</div>
-                                    <span>Threshold</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Episode 4 -->
-                    <div class="episode-card">
-                        <div class="episode-thumbnail">
-                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-episode-004.DmlMdvrW_Z1bVLoC.webp" alt="Joe Woodard">
-                            <span class="episode-number">EP 004</span>
-                            <div class="play-overlay">
-                                <div class="play-btn"></div>
-                            </div>
-                        </div>
-                        <div class="episode-content">
-                            <h3>Episode 004 - Joe Woodard</h3>
-                            <p>Join host Kacee Johnson and Joe Woodard, founder & CEO of Woodard Group, as they explore how accountants can move past AI skepticism and take practical steps to integrate automation.</p>
-                            <div class="episode-meta">
-                                <div class="episode-guest">
-                                    <div class="guest-avatar">JW</div>
-                                    <span>Woodard Group</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Episode 3 -->
-                    <div class="episode-card">
-                        <div class="episode-thumbnail">
-                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-episode-003.B1UTQhAc_Z8RTdE.webp" alt="Lindsay Stevenson">
-                            <span class="episode-number">EP 003</span>
-                            <div class="play-overlay">
-                                <div class="play-btn"></div>
-                            </div>
-                        </div>
-                        <div class="episode-content">
-                            <h3>Episode 003 - Lindsay Stevenson</h3>
-                            <p>Join host Kacee Johnson and Lindsay Stevenson as they explore BPM's journey from AI curiosity to 80% daily Copilot usage, uncovering grassroots wins, broken systems, and what late adopters should focus on now.</p>
-                            <div class="episode-meta">
-                                <div class="episode-guest">
-                                    <div class="guest-avatar">LS</div>
-                                    <span>BPM</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Episode 2 -->
-                    <div class="episode-card">
-                        <div class="episode-thumbnail">
-                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-episode-002.CdUum0pX_Z1sfR7J.webp" alt="Dan Luthi">
-                            <span class="episode-number">EP 002</span>
-                            <div class="play-overlay">
-                                <div class="play-btn"></div>
-                            </div>
-                        </div>
-                        <div class="episode-content">
-                            <h3>Episode 002 - Dan Luthi</h3>
-                            <p>Join host Kacee Johnson and Dan Luthi as they dive into AI's impact on accounting, exploring tech-driven transformations and the essential balance of automation with the human touch.</p>
-                            <div class="episode-meta">
-                                <div class="episode-guest">
-                                    <div class="guest-avatar">DL</div>
-                                    <span>Tech Leader</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Episode 1 -->
-                    <div class="episode-card">
-                        <div class="episode-thumbnail">
-                            <img src="https://ram.digitscpu.com/_astro-assets/ai-native-accounting-episode-001.4c3rushp_1uWigL.webp" alt="Dawn Brolin + Matt Gardner">
-                            <span class="episode-number">EP 001</span>
-                            <div class="play-overlay">
-                                <div class="play-btn"></div>
-                            </div>
-                        </div>
-                        <div class="episode-content">
-                            <h3>Episode 001 - Dawn Brolin + Matt Gardner</h3>
-                            <p>Join host Kacee Johnson with experts Dawn Brolin and Matt Gardner as they explore AI's real-world impact on accounting and how they've been implementing it to modernize their practices.</p>
-                            <div class="episode-meta">
-                                <div class="episode-guest">
-                                    <div class="guest-avatar">2</div>
-                                    <span>Practice Leaders</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
         <!-- Host Section -->
-        <section class="host-section">
+        <section class="host-section" id="kacee">
             <div class="container">
                 <div class="host-grid">
                     <div class="host-image">
@@ -1565,7 +1911,7 @@
         </section>
     </div>
 
-    <!-- RESEARCH PAGE -->
+    <!-- RESEARCH PAGE 
     <div id="research" class="page">
         <div class="page-hero">
             <h1>Research</h1>
@@ -1615,9 +1961,9 @@
                 </div>
             </div>
         </section>
-    </div>
+    </div>-->
 
-    <!-- SCHOLARSHIP PAGE -->
+    <!-- SCHOLARSHIP PAGE 
     <div id="scholarship" class="page">
         <div class="page-hero">
             <h1>Scholarship Program</h1>
@@ -1651,7 +1997,7 @@
             </div>
         </section>
     </div>
-
+-->
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
@@ -1700,6 +2046,11 @@
     </footer>
 
     <script>
+        function openNominationForm() {
+    // Replace with your Typeform URL
+    // window.open('YOUR_TYPEFORM_URL', '_blank');
+    alert('Nomination form will open here - replace with your Typeform URL');
+}
         // Page navigation
         function showPage(pageId) {
             // Hide all pages
